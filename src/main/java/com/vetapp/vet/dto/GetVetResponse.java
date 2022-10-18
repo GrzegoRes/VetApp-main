@@ -1,5 +1,6 @@
 package com.vetapp.vet.dto;
 
+import com.vetapp.vet.entity.Role;
 import com.vetapp.vet.entity.Vet;
 import lombok.*;
 
@@ -17,12 +18,14 @@ public class GetVetResponse {
     private String login;
     private LocalDate employmentDate;
     private double price;
+    private Role role;
 
     public static Function<Vet, GetVetResponse> entityToDtoMapper() {
         return vet -> GetVetResponse.builder()
                 .login(vet.getLogin())
                 .employmentDate(vet.getEmploymentDate())
                 .price(vet.getPrice())
+                .role(vet.getRole())
                 .build();
     }
 }

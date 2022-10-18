@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
 import javax.xml.registry.infomodel.User;
+import java.io.Console;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -85,6 +86,7 @@ public class VetAvatarServlet extends HttpServlet {
         String login = path.replaceAll("/", "");
         Optional<Vet> vet = vetService.find(login);
         if(vet.isPresent()) {
+            System.out.println(vet.get().getLogin());
             vetService.deleteAvatar(vet.get());
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
@@ -112,35 +114,6 @@ public class VetAvatarServlet extends HttpServlet {
         if (vet.isPresent()) {
             vetService.updateAvatar(vet.get(), request.getPart(Parameters.AVATAR));
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String path = ServletUtility.parseRequestPath(request);
-        String servletPath = request.getServletPath();
-
-        if (Paths.AVATARS.equals(servletPath) && path.matches(Patterns.AVATAR)) {
-            postAvatarForUser(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
-
-    private void postAvatarForUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = ServletUtility.parseRequestPath(request);
-        String login = path.replaceAll("/", "");
-        Optional<Vet> vet = vetService.find(login);
-
-        if (vet.isPresent()) {
-            if (!vet.get().isHaveAvatar()) {
-                vetService.createAvatar(vet.get(), request.getPart(Parameters.AVATAR));
-                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            } else {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

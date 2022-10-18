@@ -27,7 +27,7 @@ public class VetServlet extends HttpServlet {
     }
 
     public static class Paths {
-        public static final String USERS = "/api/users";
+        public static final String USERS = "/api/vets";
     }
 
     public static class Patterns {

@@ -38,4 +38,15 @@ public class DataStore {
     }
 
 
+    public void update(Vet vet) {
+        findVet(vet.getLogin()).ifPresentOrElse(
+                original -> {
+                    vets.remove(original);
+                    vets.add(CloningUtility.clone(vet));
+                },
+                () -> {
+                    throw new IllegalArgumentException(
+                            String.format("The character with id \"%d\" does not exist", vet.getLogin()));
+                });
+    }
 }

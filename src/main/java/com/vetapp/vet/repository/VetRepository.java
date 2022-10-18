@@ -28,4 +28,8 @@ public class VetRepository {
     public Optional<Vet> find(String login) {
         return dataStore.findVet(login);
     }
+
+    public void update(Vet vet) {
+        dataStore.update(vet);
+    }
 }

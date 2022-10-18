@@ -41,27 +41,24 @@ public class VetService {
     }
 
     public void deleteAvatar(Vet vet) {
-        Path path = Path.of(avatarsDir, vet.getLogin());
-        try {
-            if (Files.deleteIfExists(path)) {
-                vet.setHaveAvatar(false);
-                vet.setAvatar(new byte[0]);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        //Path path = Path.of(avatarsDir, vet.getLogin());
+        vet.setHaveAvatar(false);
+        vet.setAvatar(new byte[0]);
+        vetRepository.update(vet);
     }
 
     public void createAvatar(Vet vet, Part avatar) {
         if (avatar != null && !avatar.getSubmittedFileName().isEmpty()) {
             Path path = Path.of(avatarsDir, avatar.getSubmittedFileName());
             try {
-                if (!Files.exists(path)) {
-                    Files.createFile(path);
-                    Files.write(path, avatar.getInputStream().readAllBytes(), StandardOpenOption.WRITE);
-                }
+                //if (!Files.exists(path)) {
+                //   Files.createFile(path);
+                //    Files.write(path, avatar.getInputStream().readAllBytes(), StandardOpenOption.WRITE);
+                //}
+                //vet.setAvatarFileName(avatar.getSubmittedFileName());
                 vet.setHaveAvatar(true);
                 vet.setAvatar(avatar.getInputStream().readAllBytes());
+                vetRepository.update(vet);
             } catch (IOException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -70,11 +67,9 @@ public class VetService {
 
     public void updateAvatar(Vet vet, Part avatar) {
         System.out.println(avatarsDir);
-        if (avatar != null && !avatar.getSubmittedFileName().isEmpty()) {
-            if (vet.isHaveAvatar()) {
-                deleteAvatar(vet);
-            }
-            createAvatar(vet, avatar);
+        if (vet.isHaveAvatar()) {
+            deleteAvatar(vet);
         }
+        createAvatar(vet, avatar);
     }
 }
