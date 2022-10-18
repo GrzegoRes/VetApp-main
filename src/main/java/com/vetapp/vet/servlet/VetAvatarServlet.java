@@ -58,8 +58,11 @@ public class VetAvatarServlet extends HttpServlet {
         String path = ServletUtility.parseRequestPath(request);
         String login = path.replaceAll("/", "");
         Optional<Vet> vet = vetService.find(login);
-        System.out.println(vet.get().getLogin());
         if (vet.isPresent()) {
+            if(!vet.get().isHaveAvatar()){
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
             byte[] avatar = vet.get().getAvatar();
             response.addHeader(HttpHeaders.CONTENT_TYPE, MimeTypes.IMAGE_PNG);
             response.setContentLength(avatar.length);

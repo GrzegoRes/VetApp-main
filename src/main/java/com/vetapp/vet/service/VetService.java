@@ -41,24 +41,28 @@ public class VetService {
     }
 
     public void deleteAvatar(Vet vet) {
-        //Path path = Path.of(avatarsDir, vet.getLogin());
-        vet.setHaveAvatar(false);
+        Path path = Path.of(avatarsDir, vet.getLogin()+".png");
+        try{
+            Files.deleteIfExists(path);
+        } catch (Exception ex){
+
+        }
+        vet.setHaveAvatar(false); // zmienic i sprwadzać czy jest pustym bajtem
         vet.setAvatar(new byte[0]);
         vetRepository.update(vet);
     }
 
     public void createAvatar(Vet vet, Part avatar) {
         if (avatar != null && !avatar.getSubmittedFileName().isEmpty()) {
-            Path path = Path.of(avatarsDir, avatar.getSubmittedFileName());
+            Path path = Path.of(avatarsDir, vet.getLogin()+".png");
             try {
-                //if (!Files.exists(path)) {
-                //   Files.createFile(path);
-                //    Files.write(path, avatar.getInputStream().readAllBytes(), StandardOpenOption.WRITE);
-                //}
-                //vet.setAvatarFileName(avatar.getSubmittedFileName());
-                vet.setHaveAvatar(true);
-                vet.setAvatar(avatar.getInputStream().readAllBytes());
-                vetRepository.update(vet);
+                if (!Files.exists(path)) {
+                   Files.createFile(path);
+                   Files.write(path, avatar.getInputStream().readAllBytes(), StandardOpenOption.WRITE);
+                    vet.setHaveAvatar(true);
+                    vet.setAvatar(avatar.getInputStream().readAllBytes());
+                    vetRepository.update(vet);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -71,5 +75,18 @@ public class VetService {
             deleteAvatar(vet);
         }
         createAvatar(vet, avatar);
+    }
+
+    public void saveAvatar(Vet vet){
+        Path path = Path.of(avatarsDir, vet.getLogin()+".png");
+
+        try {
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+                Files.write(path, vet.getAvatar(), StandardOpenOption.WRITE);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

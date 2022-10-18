@@ -67,6 +67,10 @@ public class InitData {
         vetService.create(login3);
         vetService.create(login4);
 
+        vetService.saveAvatar(login1);
+        vetService.saveAvatar(login2);
+        vetService.saveAvatar(login3);
+        vetService.saveAvatar(login4);
     }
 
     @SneakyThrows
