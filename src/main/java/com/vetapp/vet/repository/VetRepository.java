@@ -30,6 +30,10 @@ public class VetRepository {
     }
 
     public void update(Vet vet) {
-        dataStore.update(vet);
+        dataStore.updateVet(vet);
+    }
+
+    public void delete(Vet vet) {
+        dataStore.deleteVet(vet);
     }
 }

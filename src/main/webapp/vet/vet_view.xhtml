@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="login" value="#{vetView.login}" required="true"/>
+        <f:viewAction action="#{vetView.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article>
+                <header><h2><h:outputText value="#{vetView.login}"/></h2></header>
+                <div>
+                    <div>
+                        EmploymentDate: <h:outputText value="#{vetView.vet.employmentDate}"/>
+                    </div>
+                    <div>
+                        Price: <h:outputText value="#{vetView.vet.price}"/>
+                    </div>
+
+                    <h:dataTable value="#{vetView.vet.visits}" var="visit" styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">description</f:facet>
+                            <h:outputText value="#{visit.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">view</f:facet>
+                            <h:link outcome="/visit/visit_view.xhtml" value="view">
+                                <f:param name="id" value="#{visit.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">edit</f:facet>
+                            <h:link outcome="/visit/visit_edit.xhtml" value="edit">
+                                <f:param name="id" value="#{visit.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">delete</f:facet>
+                            <h:form>
+                                <h:commandButton styleClass="ui-button ui-control" value="delete"
+                                                 action="#{vetView.deleteAction(visit)}"/>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                    <h:link styleClass="ui-button ui-control" outcome="/visit/visit_create.xhtml" value="Create!">
+                        <f:param name="login" value="#{vetView.vet.login}"/>
+                    </h:link>
+                </div>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

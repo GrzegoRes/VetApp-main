@@ -2,6 +2,7 @@ package com.vetapp.vet.service;
 
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.repository.VetRepository;
+import com.vetapp.visit.repository.VisitRepository;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Resource;
@@ -19,13 +20,15 @@ import java.util.Optional;
 @NoArgsConstructor
 public class VetService {
     private VetRepository vetRepository;
+    private VisitRepository visitRepository;
 
     @Resource(name = "avatars.dir")
     private String avatarsDir;
 
     @Inject
-    public VetService(VetRepository vetRepository){
+    public VetService(VetRepository vetRepository, VisitRepository visitRepository){
         this.vetRepository = vetRepository;
+        this.visitRepository = visitRepository;
     }
 
     public Optional<Vet> find(String login) {
@@ -88,5 +91,14 @@ public class VetService {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public void delete(Vet vet) {
+        vet.getVisits().forEach(visitRepository::delete);
+        vetRepository.delete(vet);
+    }
+
+    public void update(Vet vet) {
+        vetRepository.update(vet);
     }
 }
