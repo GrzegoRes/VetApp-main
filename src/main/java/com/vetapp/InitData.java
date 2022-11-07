@@ -1,9 +1,11 @@
 package com.vetapp;
 
+import com.vetapp.animal.entity.Animal;
+import com.vetapp.animal.entity.TypeAnimal;
+import com.vetapp.animal.service.AnimalService;
 import com.vetapp.vet.entity.Role;
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.service.VetService;
-import com.vetapp.visit.entity.Animal;
 import com.vetapp.visit.entity.Visit;
 import com.vetapp.visit.service.VisitService;
 import lombok.SneakyThrows;
@@ -21,10 +23,12 @@ public class InitData {
     private final VetService vetService;
     private final VisitService visitService;
 
+    private final AnimalService animalService;
     @Inject
-    public InitData(VetService vetService, VisitService visitService){
+    public InitData(VetService vetService, VisitService visitService, AnimalService animalService){
         this.vetService = vetService;
         this.visitService = visitService;
+        this.animalService = animalService;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -32,6 +36,30 @@ public class InitData {
     }
 
     private synchronized void init(){
+
+        Animal animal1 = Animal.builder()
+                .id(1)
+                .name("animal1")
+                .weight(10)
+                .age(4)
+                .typeAnimal(TypeAnimal.hamster)
+                .build();
+
+        Animal animal2 = Animal.builder()
+                .id(2)
+                .name("animal2")
+                .weight(15)
+                .age(2)
+                .typeAnimal(TypeAnimal.dog)
+                .build();
+
+        Animal animal3 = Animal.builder()
+                .id(3)
+                .name("animal3")
+                .weight(12)
+                .age(8)
+                .typeAnimal(TypeAnimal.cat)
+                .build();
 
         Vet login1 = Vet.builder()
                 .login("login1")
@@ -77,7 +105,7 @@ public class InitData {
                 .id(1)
                 .description("description1")
                 .dateVisit(LocalDate.of(2022,10,25))
-                .animal(Animal.CAT)
+                //.animal(animal1)
                 .price(300)
                 .vet(login1)
                 .build();
@@ -86,10 +114,14 @@ public class InitData {
                 .id(2)
                 .description("description2")
                 .dateVisit(LocalDate.of(2020,10,25))
-                .animal(Animal.DOG)
+                //.animal(animal1)
                 .price(150)
                 .vet(login1)
                 .build();
+
+        animalService.create(animal1);
+        animalService.create(animal2);
+        animalService.create(animal3);
 
         vetService.create(login1);
         vetService.create(login2);

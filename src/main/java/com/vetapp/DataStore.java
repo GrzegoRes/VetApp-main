@@ -1,5 +1,6 @@
 package com.vetapp;
 
+import com.vetapp.animal.entity.Animal;
 import com.vetapp.serialization.CloningUtility;
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.visit.entity.Visit;
@@ -17,6 +18,12 @@ import java.util.stream.Collectors;
 public class DataStore {
     private Set<Vet> vets = new HashSet<>();
     private Set<Visit> visits = new HashSet<>();
+    private Set<Animal> animals = new HashSet<>();
+
+    /////////////////////////////////////
+    ///          Vet
+    ////////////////////////////////////
+
     public synchronized Optional<Vet> findVet(String login) {
         return vets.stream()
                 .filter(character -> character.getLogin().equals(login))
@@ -47,12 +54,22 @@ public class DataStore {
                 },
                 () -> {
                     throw new IllegalArgumentException(
-                            String.format("The character with id \"%d\" does not exist", vet.getLogin()));
+                            String.format("The character with id \"%s\" does not exist", vet.getLogin()));
                 });
     }
 
     public void deleteVet(Vet vet) {
         vets.remove(vet);
+    }
+
+    /////////////////////////////////////
+    ///          Visit
+    ////////////////////////////////////
+
+    public synchronized List<Visit> findAllVisits() {
+        return visits.stream()
+                .map(CloningUtility::clone)
+                .collect(Collectors.toList());
     }
 
     public synchronized Optional<Visit> findVisit(Integer id) {
@@ -85,5 +102,47 @@ public class DataStore {
 
     public void deleteVisit(Visit visit) {
         visits.remove(visit);
+    }
+
+    /////////////////////////////////////
+    ///          ANIMAL
+    ////////////////////////////////////
+
+    public synchronized List<Animal> findAllAnimal() {
+        return animals.stream()
+                .map(CloningUtility::clone)
+                .collect(Collectors.toList());
+    }
+
+    public synchronized Optional<Animal> findAnimal(Integer id) {
+        return animals.stream()
+                .filter(animal -> animal.getId().equals(id))
+                .findFirst()
+                .map(CloningUtility::clone);
+    }
+
+    public synchronized void createAnimal(Animal animal) throws IllegalArgumentException {
+        findAnimal(animal.getId()).ifPresentOrElse(
+                original -> {
+                    throw new IllegalArgumentException(
+                            String.format("The animal id \"%s\" is not unique", animal.getId()));
+                },
+                () -> animals.add(CloningUtility.clone(animal)));
+    }
+
+    public void updateAnimal(Animal animal) {
+        findAnimal(animal.getId()).ifPresentOrElse(
+                original -> {
+                    animals.remove(original);
+                    animals.add(CloningUtility.clone(animal));
+                },
+                () -> {
+                    throw new IllegalArgumentException(
+                            String.format("The character with id \"%d\" does not exist", animal.getId()));
+                });
+    }
+
+    public void deleteAnimal(Animal animal) {
+        animals.remove(animal);
     }
 }
