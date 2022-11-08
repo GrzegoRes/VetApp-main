@@ -2,7 +2,6 @@ package com.vetapp.visit.view;
 
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.service.VetService;
-import com.vetapp.visit.entity.Animal;
 import com.vetapp.visit.entity.Visit;
 import com.vetapp.visit.model.VisitCreateModel;
 import com.vetapp.visit.model.VisitEditModel;

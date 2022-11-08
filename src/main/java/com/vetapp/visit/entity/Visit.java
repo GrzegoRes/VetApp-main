@@ -1,5 +1,6 @@
 package com.vetapp.visit.entity;
 
+import com.vetapp.animal.entity.Animal;
 import com.vetapp.vet.entity.Vet;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -13,12 +14,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
-@EqualsAndHashCode(exclude = "vet")
+@EqualsAndHashCode(exclude ={"vet" }) //, "animal"
 public class Visit implements Serializable {
     private Integer id;
     private String description;
     private double price;
     private LocalDate dateVisit;
-    private Animal animal; //tmp
+    private Animal animal;
     private Vet vet;
 }

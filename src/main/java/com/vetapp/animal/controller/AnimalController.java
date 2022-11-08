@@ -58,7 +58,7 @@ public class AnimalController {
         Optional<Animal> animal = animalService.find(id);
         if(animal.isPresent()){
             animalService.update(Animal.builder()
-                    .id(request.getId())
+                    .id(id)
                     .name(request.getName())
                     .weight(request.getWeight())
                     .age(request.getAge())

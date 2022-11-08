@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "775af4f7-cb1d-4c69-84b1-76f943d6a980",
+		"name": "Labki",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Animals",
+			"item": [
+				{
+					"name": "GET ALL ANIMALS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DETAILS ANIMAL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE ANIMAL",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"age\": 45,\r\n    \"name\": \"animal1\",\r\n    \"typeAnimal\": \"hamster\",\r\n    \"weight\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE ANIMAL",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 15,\r\n    \"age\": 111,\r\n    \"name\": \"animal111\",\r\n    \"typeAnimal\": \"hadmster\",\r\n    \"weight\": 1011\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE ANIMAL",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Animal/Visit",
+			"item": [
+				{
+					"name": "GET ALL VISITS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1/visits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1",
+								"visits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DETAILS VISIT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1/visits/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1",
+								"visits",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE VISIT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"dateVisit\": \"1999-10-25\",\r\n    \"description\": \"description10\",\r\n    \"price\": 600.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1/visits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1",
+								"visits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE VISIT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1/visits/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1",
+								"visits",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE VISIT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9080/vetapp/api/animals/1/visits/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9080",
+							"path": [
+								"vetapp",
+								"api",
+								"animals",
+								"1",
+								"visits",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE AVATAR",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/JEE/VetApp-main/src/main/resources/com/vetapp/avatar/eloise.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/vetapp/api/avatars/login4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"vetapp",
+						"api",
+						"avatars",
+						"login4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET AVATAR USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/vetapp/api/avatars/login4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"vetapp",
+						"api",
+						"avatars",
+						"login4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHANGE/SET AVATAR USER",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "avatar",
+						"value": "",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/C:/JEE/VetApp-main/src/main/resources/com/vetapp/avatar/zereni.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9080/vetapp/api/avatars/login4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"vetapp",
+						"api",
+						"avatars",
+						"login4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL USERS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/vetapp/api/vets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"vetapp",
+						"api",
+						"vets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET DETAILS USER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9080/vetapp/api/vets/login1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"vetapp",
+						"api",
+						"vets",
+						"login1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

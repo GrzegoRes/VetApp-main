@@ -105,7 +105,7 @@ public class InitData {
                 .id(1)
                 .description("description1")
                 .dateVisit(LocalDate.of(2022,10,25))
-                //.animal(animal1)
+                .animal(animal1)
                 .price(300)
                 .vet(login1)
                 .build();
@@ -114,7 +114,7 @@ public class InitData {
                 .id(2)
                 .description("description2")
                 .dateVisit(LocalDate.of(2020,10,25))
-                //.animal(animal1)
+                .animal(animal1)
                 .price(150)
                 .vet(login1)
                 .build();

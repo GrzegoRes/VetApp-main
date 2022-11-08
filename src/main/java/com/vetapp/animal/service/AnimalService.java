@@ -3,6 +3,7 @@ package com.vetapp.animal.service;
 import com.vetapp.animal.entity.Animal;
 import com.vetapp.animal.repository.AnimalRepository;
 import com.vetapp.vet.repository.VetRepository;
+import com.vetapp.visit.entity.Visit;
 import com.vetapp.visit.repository.VisitRepository;
 import lombok.NoArgsConstructor;
 
@@ -15,10 +16,12 @@ import java.util.Optional;
 @NoArgsConstructor
 public class AnimalService {
     private AnimalRepository animalRepository;
+    private VisitRepository visitRepository;
 
     @Inject
-    public AnimalService(AnimalRepository animalRepository){
+    public AnimalService(AnimalRepository animalRepository,VisitRepository visitRepository){
         this.animalRepository = animalRepository;
+        this.visitRepository = visitRepository;
     }
 
     public List<Animal> findAll() {
@@ -38,6 +41,8 @@ public class AnimalService {
     }
 
     public void delete(Animal animal) {
+        List<Visit> visits = visitRepository.findAllByAnimal(animal);
+        visits.forEach(visitRepository::delete);
         animalRepository.delete(animal);
     }
 }
