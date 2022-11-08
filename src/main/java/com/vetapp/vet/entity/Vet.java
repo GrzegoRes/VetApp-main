@@ -4,6 +4,10 @@ import com.vetapp.visit.entity.Visit;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class Vet implements Serializable {
     private Role role;
     private boolean isHaveAvatar;
     private byte[] avatar;
+
     private List<Visit> visits;
 
     public void addVisits(Visit visit){

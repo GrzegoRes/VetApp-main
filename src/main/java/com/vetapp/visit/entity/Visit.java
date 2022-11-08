@@ -5,6 +5,7 @@ import com.vetapp.vet.entity.Vet;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,11 +16,21 @@ import java.time.LocalDate;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode(exclude ={"vet" }) //, "animal"
+@Entity
+@Table(name = "vet")
 public class Visit implements Serializable {
+    @Id
     private Integer id;
     private String description;
     private double price;
+
+    @Column(name = "date_visit")
     private LocalDate dateVisit;
+
+    @ManyToOne
+    @JoinColumn(name = "animal")
     private Animal animal;
+
+    @Transient
     private Vet vet;
 }

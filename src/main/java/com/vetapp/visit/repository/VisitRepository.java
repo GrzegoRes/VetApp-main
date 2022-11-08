@@ -7,40 +7,43 @@ import com.vetapp.vet.entity.Vet;
 import com.vetapp.visit.entity.Visit;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Dependent
+@RequestScoped
 public class VisitRepository {
-    private DataStore dataStore;
+    private EntityManager em;
 
-    @Inject
-    public VisitRepository(DataStore dataStore){
-        this.dataStore = dataStore;
+    @PersistenceContext
+    public void setEm(EntityManager em){
+        this.em = em;
     }
+
     public void create(Visit visit) {
-        dataStore.createVisit(visit);
+        em.persist(visit);
     }
 
     public void delete(Visit visit) {
-        dataStore.deleteVisit(visit);
+        em.remove(visit);
     }
 
     public void update(Visit visit) {
-        dataStore.updateVisit(visit);
+        em.merge(visit);
     }
 
     public Optional<Visit> find(Integer id) {
-        return dataStore.findVisit(id);
+        return Optional.ofNullable(em.find(Visit.class,id));
     }
 
     public List<Visit> findAllByAnimal(Animal animal) {
-        return dataStore.findAllVisits().stream()
-                .filter(visit -> visit.getAnimal().equals(animal))
-                .map(CloningUtility::clone)
-                .collect(Collectors.toList());
+        return em.createQuery("select v from Visit v where v.animal = :animal", Visit.class)
+                .setParameter("animal", animal)
+                .getResultList();
     }
 }

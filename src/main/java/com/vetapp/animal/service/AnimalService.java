@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,7 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
+    @Transactional
     public void create(Animal animal) {
         animalRepository.create(animal);
     }
@@ -36,10 +39,12 @@ public class AnimalService {
         return animalRepository.find(id);
     }
 
+    @Transactional
     public void update(Animal animal) {
         animalRepository.update(animal);
     }
 
+    @Transactional
     public void delete(Animal animal) {
         List<Visit> visits = visitRepository.findAllByAnimal(animal);
         visits.forEach(visitRepository::delete);

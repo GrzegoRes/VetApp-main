@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ public class VisitService {
         this.animalRepository = animalRepository;
     }
 
+    @Transactional
     public void create2(Visit visit) {
         visitRepository.create(visit);
     }
@@ -40,6 +42,7 @@ public class VisitService {
         vetRepository.update(vet);
     }
 
+    @Transactional
     public void update(Visit visit){
         visitRepository.update(visit);
     }
@@ -48,6 +51,7 @@ public class VisitService {
         return visitRepository.find(id);
     }
 
+    @Transactional
     public void delete(Visit visit){
         visitRepository.delete(visit);
     }

@@ -4,6 +4,7 @@ import com.vetapp.visit.entity.Visit;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,17 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "animal")
 public class Animal implements Serializable {
+    @Id
     private Integer id;
     private String name;
     private long weight;
     private int age;
+    @Column(name = "type_animal")
     private TypeAnimal typeAnimal;
+    @Transient
     private List<Visit> visits;
 
     public void addVisits(Visit visit){

@@ -4,37 +4,39 @@ import com.vetapp.DataStore;
 import com.vetapp.animal.entity.Animal;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class AnimalRepository {
-    private DataStore dataStore;
+    private EntityManager em;
 
-    @Inject
-    public AnimalRepository(DataStore dataStore){
-        this.dataStore = dataStore;
+    @PersistenceContext
+    public void setEm(EntityManager em){
+        this.em = em;
     }
 
-
     public List<Animal> findAll() {
-        return dataStore.findAllAnimal();
+        return em.createQuery("select c from Animal c", Animal.class).getResultList();
     }
 
     public void create(Animal animal) {
-        dataStore.createAnimal(animal);
+        em.persist(animal);
     }
 
     public Optional<Animal> find(Integer id) {
-        return dataStore.findAnimal(id);
+        return Optional.ofNullable(em.find(Animal.class, id));
     }
 
     public void update(Animal animal) {
-        dataStore.updateAnimal(animal);
+        em.merge(animal);
     }
 
     public void delete(Animal animal) {
-        dataStore.deleteAnimal(animal);
+        em.remove(animal);
     }
 }

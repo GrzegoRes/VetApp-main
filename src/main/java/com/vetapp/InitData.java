@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -24,11 +25,15 @@ public class InitData {
     private final VisitService visitService;
 
     private final AnimalService animalService;
+
+    private RequestContextController requestContextController;
+
     @Inject
-    public InitData(VetService vetService, VisitService visitService, AnimalService animalService){
+    public InitData(VetService vetService, VisitService visitService, AnimalService animalService, RequestContextController requestContextController){
         this.vetService = vetService;
         this.visitService = visitService;
         this.animalService = animalService;
+        this.requestContextController = requestContextController;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -36,6 +41,7 @@ public class InitData {
     }
 
     private synchronized void init(){
+        requestContextController.activate();// start request scope in order to inject request scoped repositories
 
         Animal animal1 = Animal.builder()
                 .id(1)
@@ -60,6 +66,10 @@ public class InitData {
                 .age(8)
                 .typeAnimal(TypeAnimal.cat)
                 .build();
+
+        animalService.create(animal1);
+        animalService.create(animal2);
+        animalService.create(animal3);
 
         Vet login1 = Vet.builder()
                 .login("login1")
@@ -119,10 +129,6 @@ public class InitData {
                 .vet(login1)
                 .build();
 
-        animalService.create(animal1);
-        animalService.create(animal2);
-        animalService.create(animal3);
-
         vetService.create(login1);
         vetService.create(login2);
         vetService.create(login3);
@@ -135,6 +141,8 @@ public class InitData {
 
         visitService.create(visit1);
         visitService.create(visit2);
+
+        requestContextController.deactivate();
     }
 
     @SneakyThrows
