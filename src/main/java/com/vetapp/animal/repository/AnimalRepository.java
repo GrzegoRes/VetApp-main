@@ -13,9 +13,10 @@ import java.util.Optional;
 
 @RequestScoped
 public class AnimalRepository {
+
     private EntityManager em;
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "VetApppPu")
     public void setEm(EntityManager em){
         this.em = em;
     }
@@ -25,6 +26,7 @@ public class AnimalRepository {
     }
 
     public void create(Animal animal) {
+
         em.persist(animal);
     }
 

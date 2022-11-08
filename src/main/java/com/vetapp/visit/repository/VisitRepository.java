@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 public class VisitRepository {
+
     private EntityManager em;
 
-    @PersistenceContext
-    public void setEm(EntityManager em){
-        this.em = em;
-    }
+    @PersistenceContext(unitName = "VetApppPu")
+   public void setEm(EntityManager em){
+       this.em = em;
+   }
 
     public void create(Visit visit) {
         em.persist(visit);

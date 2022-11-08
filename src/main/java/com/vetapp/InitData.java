@@ -139,8 +139,8 @@ public class InitData {
         vetService.saveAvatar(login3);
         vetService.saveAvatar(login4);
 
-        visitService.create(visit1);
-        visitService.create(visit2);
+        visitService.create2(visit1);
+        visitService.create2(visit2);
 
         requestContextController.deactivate();
     }

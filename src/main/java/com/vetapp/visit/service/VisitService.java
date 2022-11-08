@@ -33,14 +33,14 @@ public class VisitService {
         visitRepository.create(visit);
     }
 
-    public void create(Visit visit) {
-        visitRepository.create(visit);
-
-        Vet vet = visit.getVet();
-        vet.addVisits(visit);
-
-        vetRepository.update(vet);
-    }
+    //public void create(Visit visit) {
+    //    visitRepository.create(visit);
+//
+    //    //Vet vet = visit.getVet();
+    //    //vet.addVisits(visit);
+//
+    //    vetRepository.update(vet);
+    //}
 
     @Transactional
     public void update(Visit visit){

@@ -81,7 +81,7 @@ public class VisitEdit implements Serializable {
             this.vet.deleteVisits(this.visit);
             vetService.update(this.vet);
 
-            visitService.create(visit);
+            visitService.create2(visit);
 
 
             return "vet_list_view?faces-reedirect=true";

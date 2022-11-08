@@ -64,7 +64,7 @@ public class VisitCreate implements Serializable {
                     .vet(vetService.find(login).get())
                     .build();
 
-            visitService.create(visit);
+            visitService.create2(visit);
 
             //return "vet_view.xhtml?login=" + visit.getVet().getLogin() + "&faces-redirect=true";
             return "vet_list_view?faces-reedirect=true";
