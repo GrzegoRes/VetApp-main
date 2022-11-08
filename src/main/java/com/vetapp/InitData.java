@@ -117,7 +117,7 @@ public class InitData {
                 .dateVisit(LocalDate.of(2022,10,25))
                 .animal(animal1)
                 .price(300)
-                .vet(login1)
+                //.vet(login1)
                 .build();
 
         var visit2 = Visit.builder()
@@ -126,7 +126,7 @@ public class InitData {
                 .dateVisit(LocalDate.of(2020,10,25))
                 .animal(animal1)
                 .price(150)
-                .vet(login1)
+                //.vet(login1)
                 .build();
 
         vetService.create(login1);

@@ -31,7 +31,7 @@ public class VisitRepository {
     }
 
     public void delete(Visit visit) {
-        em.remove(visit);
+        em.detach(visit);
     }
 
     public void update(Visit visit) {

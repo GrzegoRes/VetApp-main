@@ -27,10 +27,10 @@ public class Visit implements Serializable {
     @Column(name = "date_visit")
     private LocalDate dateVisit;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "animal")
     private Animal animal;
 
-    @Transient
-    private Vet vet;
+    //@Transient
+    //private Vet vet;
 }
