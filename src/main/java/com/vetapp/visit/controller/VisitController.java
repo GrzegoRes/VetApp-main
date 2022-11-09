@@ -85,7 +85,7 @@ public class VisitController {
         Optional<Animal> animal = animalService.find(idAnimal);
         if(animal.isPresent()){
             visitService.update(Visit.builder()
-                    .id(putVisitRequest.getId())
+                    .id(id)
                     .description(putVisitRequest.getDescription())
                     .price(putVisitRequest.getPrice())
                     .dateVisit(putVisitRequest.getDateVisit())
