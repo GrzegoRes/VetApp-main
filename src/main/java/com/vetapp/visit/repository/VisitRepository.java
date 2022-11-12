@@ -31,7 +31,8 @@ public class VisitRepository {
     }
 
     public void delete(Visit visit) {
-        em.detach(visit);
+        Visit visit1 = em.find(Visit.class, visit.getId());
+        em.remove(visit1);
     }
 
     public void update(Visit visit) {

@@ -61,7 +61,7 @@ public class VisitCreate implements Serializable {
                     .id(Integer.parseInt(visitCreateModel.getId()))
                     .price(Double.parseDouble(visitCreateModel.getPrice()))
                     .description(visitCreateModel.getDescription())
-                    .vet(vetService.find(login).get())
+                    //.vet(vetService.find(login).get())
                     .build();
 
             visitService.create2(visit);

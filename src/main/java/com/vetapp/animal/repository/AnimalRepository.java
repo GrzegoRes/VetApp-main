@@ -2,6 +2,7 @@ package com.vetapp.animal.repository;
 
 import com.vetapp.DataStore;
 import com.vetapp.animal.entity.Animal;
+import com.vetapp.visit.entity.Visit;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
@@ -26,7 +27,6 @@ public class AnimalRepository {
     }
 
     public void create(Animal animal) {
-
         em.persist(animal);
     }
 
@@ -39,6 +39,7 @@ public class AnimalRepository {
     }
 
     public void delete(Animal animal) {
-        em.remove(animal);
+        Animal animal1 = em.find(Animal.class, animal.getId());
+        em.remove(animal1);
     }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode(exclude ={"vet" }) //, "animal"
 @Entity
-@Table(name = "vet")
+@Table(name = "visit")
 public class Visit implements Serializable {
     @Id
     private Integer id;

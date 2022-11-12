@@ -49,7 +49,7 @@ public class VisitEdit implements Serializable {
         Optional<Visit> visit = visitService.find(id);
         if (visit.isPresent()) {
             this.visit = visit.get();
-            this.vet = vetService.find(this.visit.getVet().getLogin()).get();
+            //this.vet = vetService.find(this.visit.getVet().getLogin()).get();
             this.visitEditModel = VisitEditModel.builder()
                     .id(this.visit.getId().toString())
                     .price(Double.toString(this.visit.getPrice()))
@@ -74,7 +74,7 @@ public class VisitEdit implements Serializable {
                     //.dateVisit(LocalDate.parse(visitEditModel.getDateVisit()))
                     //.animal(Enum.valueOf(Animal.class,visitEditModel.getAnimal()))
                     .description(visitEditModel.getDescription())
-                    .vet(vetService.find(visitEditModel.getLogin()).get())
+                    //.vet(vetService.find(visitEditModel.getLogin()).get())
                     .build();
 
             visitService.delete(this.visit);
