@@ -3,7 +3,6 @@ package com.vetapp.visit.view;
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.service.VetService;
 import com.vetapp.visit.entity.Visit;
-import com.vetapp.visit.model.VisitCreateModel;
 import com.vetapp.visit.model.VisitEditModel;
 import com.vetapp.visit.service.VisitService;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -78,7 +76,7 @@ public class VisitEdit implements Serializable {
                     .build();
 
             visitService.delete(this.visit);
-            this.vet.deleteVisits(this.visit);
+            //this.vet.deleteVisits(this.visit);
             vetService.update(this.vet);
 
             visitService.create2(visit);

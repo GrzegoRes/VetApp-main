@@ -15,8 +15,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 

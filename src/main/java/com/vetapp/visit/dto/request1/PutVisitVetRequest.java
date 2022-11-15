@@ -9,9 +9,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PutVisitRequest {
+public class PutVisitVetRequest {
     private Integer id;
     private String description;
     private double price;
     private LocalDate dateVisit;
+
+    private String idVet;
 }

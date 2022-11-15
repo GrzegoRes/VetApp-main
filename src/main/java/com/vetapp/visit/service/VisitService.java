@@ -18,14 +18,14 @@ import java.util.Optional;
 @NoArgsConstructor
 public class VisitService {
     private VisitRepository visitRepository;
-    private VetRepository vetRepository;
     private AnimalRepository animalRepository;
+    private VetRepository vetRepository;
 
     @Inject
-    public VisitService(VisitRepository visitRepository, VetRepository vetRepository,AnimalRepository animalRepository){
+    public VisitService(VisitRepository visitRepository, AnimalRepository animalRepository, VetRepository vetRepository){
         this.visitRepository = visitRepository;
-        this.vetRepository = vetRepository;
         this.animalRepository = animalRepository;
+        this.vetRepository = vetRepository;
     }
 
     @Transactional
@@ -62,5 +62,13 @@ public class VisitService {
             return Optional.empty();
         }
         return Optional.of(visitRepository.findAllByAnimal(animal.get()));
+    }
+
+    public Optional<List<Visit>> findByVet(String idVet) {
+        Optional<Vet> vet = vetRepository.find(idVet);
+        if (vet.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(visitRepository.findAllByVet(vet.get()));
     }
 }

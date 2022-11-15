@@ -1,5 +1,6 @@
 package com.vetapp.animal.entity;
 
+import com.vetapp.vet.entity.Vet;
 import com.vetapp.visit.entity.Visit;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -26,8 +27,9 @@ public class Animal implements Serializable {
     private int age;
     @Column(name = "type_animal")
     private TypeAnimal typeAnimal;
-    @Transient
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Visit> visits;
+
 
     public void addVisits(Visit visit){
         visits.add(visit);

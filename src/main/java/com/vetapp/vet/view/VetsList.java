@@ -19,10 +19,10 @@ public class VetsList {
         this.vetService = vetService;
     }
 
-    public List<Vet> getVets(){
-        vets = vetService.findAll();
-        return vets;
-    }
+    //public List<Vet> getVets(){
+    //    vets = vetService.findAll();
+    //    return vets;
+    //}
 
     public String deleteAction(Vet vet){
         vetService.delete(vet);

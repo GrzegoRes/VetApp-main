@@ -31,6 +31,7 @@ public class Visit implements Serializable {
     @JoinColumn(name = "animal")
     private Animal animal;
 
-    //@Transient
-    //private Vet vet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vet")
+    private Vet vet;
 }

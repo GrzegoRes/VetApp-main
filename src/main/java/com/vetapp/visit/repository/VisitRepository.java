@@ -48,4 +48,10 @@ public class VisitRepository {
                 .setParameter("animal", animal)
                 .getResultList();
     }
+
+    public List<Visit> findAllByVet(Vet vet) {
+        return em.createQuery("select v from Visit v where v.vet = :vet", Visit.class)
+                .setParameter("vet", vet)
+                .getResultList();
+    }
 }

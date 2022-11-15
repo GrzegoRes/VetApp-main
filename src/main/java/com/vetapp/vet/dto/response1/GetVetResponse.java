@@ -1,9 +1,10 @@
-package com.vetapp.vet.dto;
+package com.vetapp.vet.dto.response1;
 
 import com.vetapp.vet.entity.Role;
 import com.vetapp.vet.entity.Vet;
 import lombok.*;
 
+import javax.json.bind.annotation.JsonbPropertyOrder;
 import java.time.LocalDate;
 import java.util.function.Function;
 
@@ -14,6 +15,7 @@ import java.util.function.Function;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@JsonbPropertyOrder({"login","employmentDate","price","role"})
 public class GetVetResponse {
     private String login;
     private LocalDate employmentDate;

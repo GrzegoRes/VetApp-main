@@ -1,12 +1,7 @@
 package com.vetapp.animal.repository;
 
-import com.vetapp.DataStore;
 import com.vetapp.animal.entity.Animal;
-import com.vetapp.visit.entity.Visit;
-
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

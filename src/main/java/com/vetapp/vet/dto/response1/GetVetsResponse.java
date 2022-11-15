@@ -1,4 +1,4 @@
-package com.vetapp.vet.dto;
+package com.vetapp.vet.dto.response1;
 
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class GetVetsResponse {
 
     public static Function<Collection<com.vetapp.vet.entity.Vet>, GetVetsResponse> entityToDtoMapper() {
         return vets -> {
-            GetVetsResponse.GetVetsResponseBuilder response = GetVetsResponse.builder();
+            GetVetsResponseBuilder response = GetVetsResponse.builder();
             vets.stream()
                     .map(character -> Vet.builder()
                             .login(character.getLogin())

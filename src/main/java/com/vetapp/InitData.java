@@ -17,7 +17,6 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 @ApplicationScoped
 public class InitData {
@@ -78,7 +77,7 @@ public class InitData {
                 .role(Role.USER)
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/zereni.png"))
-                .visits(new ArrayList<>())
+                //.visits(new ArrayList<>())
                 .build();
 
         Vet login2 = Vet.builder()
@@ -88,7 +87,7 @@ public class InitData {
                 .role(Role.USER)
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/uhlbrecht.png"))
-                .visits(new ArrayList<>())
+                //.visits(new ArrayList<>())
                 .build();
 
         Vet login3 = Vet.builder()
@@ -98,7 +97,7 @@ public class InitData {
                 .role(Role.USER)
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/calvian.png"))
-                .visits(new ArrayList<>())
+                //.visits(new ArrayList<>())
                 .build();
 
         Vet login4 = Vet.builder()
@@ -108,7 +107,7 @@ public class InitData {
                 .role(Role.USER)
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/eloise.png"))
-                .visits(new ArrayList<>())
+                //.visits(new ArrayList<>())
                 .build();
 
         var visit1 = Visit.builder()
@@ -117,7 +116,7 @@ public class InitData {
                 .dateVisit(LocalDate.of(2022,10,25))
                 .animal(animal1)
                 .price(300)
-                //.vet(login1)
+                .vet(login1)
                 .build();
 
         var visit2 = Visit.builder()
@@ -126,7 +125,7 @@ public class InitData {
                 .dateVisit(LocalDate.of(2020,10,25))
                 .animal(animal1)
                 .price(150)
-                //.vet(login1)
+                .vet(login1)
                 .build();
 
         vetService.create(login1);
@@ -134,10 +133,10 @@ public class InitData {
         vetService.create(login3);
         vetService.create(login4);
 
-        vetService.saveAvatar(login1);
-        vetService.saveAvatar(login2);
-        vetService.saveAvatar(login3);
-        vetService.saveAvatar(login4);
+        //vetService.saveAvatar(login1);
+        //vetService.saveAvatar(login2);
+        //vetService.saveAvatar(login3);
+        //vetService.saveAvatar(login4);
 
         visitService.create2(visit1);
         visitService.create2(visit2);
