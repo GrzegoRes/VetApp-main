@@ -12,7 +12,9 @@ import com.vetapp.vet.entity.Role;
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.service.VetService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
@@ -23,11 +25,17 @@ public class VetController {
 
     public VetController(){};
 
-    @Inject
+    @EJB
     void setVetService(VetService vetService){
         this.vetService = vetService;
     }
 
+    private Pbkdf2PasswordHash pbkdf;
+
+    @Inject
+    public void setPbkdf(Pbkdf2PasswordHash pbkdf){
+        this.pbkdf = pbkdf;
+    }
 
     @GET
     @Produces(MimeTypes.APPLICATION_JSON)
@@ -65,7 +73,7 @@ public class VetController {
                     .login(login)
                     .employmentDate(request.getEmploymentDate())
                     .price(request.getPrice())
-                    .role(Role.fromString(request.getRole()))
+                    .roles(vet.get().getRoles())
                     .build());
             return Response.status(Response.Status.OK).build();
         }
@@ -80,7 +88,6 @@ public class VetController {
                     .login(request.getLogin())
                     .employmentDate(request.getEmploymentDate())
                     .price(request.getPrice())
-                    .role(Role.fromString(request.getRole()))
                     .build());
             return Response.status(Response.Status.CREATED).build();
         }catch (IllegalArgumentException ex){

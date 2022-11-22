@@ -10,6 +10,7 @@ import com.vetapp.visit.dto.response1.GetVisitsResponse;
 import com.vetapp.visit.entity.Visit;
 import com.vetapp.visit.service.VisitService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -24,17 +25,14 @@ public class VetVisitController {
 
     public VetVisitController(){};
 
-    @Inject
-    void setAnimalService(VetService vetService, AnimalService animalService){
-        this.vetService = vetService;
+    @EJB
+    void setAnimalService(AnimalService animalService){
         this.animalService = animalService;
     }
-
-    @Inject
-    void setAnimalService(VisitService visitService){
-        this.visitService = visitService;
+    @EJB
+    void setVetService(VetService vetService){
+        this.vetService = vetService;
     }
-
     @GET
     @Produces(MimeTypes.APPLICATION_JSON)
     public Response getVisits(@PathParam("idVet") String idVet){

@@ -8,7 +8,9 @@ import com.vetapp.animal.entity.Animal;
 import com.vetapp.animal.entity.TypeAnimal;
 import com.vetapp.animal.service.AnimalService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
@@ -19,8 +21,8 @@ public class AnimalController {
 
     public AnimalController(){};
 
-    @Inject
-    void setAnimalService(AnimalService animalService){
+    @EJB
+    public void setAnimalService(AnimalService animalService){
         this.animalService = animalService;
     }
 

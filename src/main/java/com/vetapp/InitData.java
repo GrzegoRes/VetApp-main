@@ -2,46 +2,43 @@ package com.vetapp;
 
 import com.vetapp.animal.entity.Animal;
 import com.vetapp.animal.entity.TypeAnimal;
-import com.vetapp.animal.service.AnimalService;
 import com.vetapp.vet.entity.Role;
 import com.vetapp.vet.entity.Vet;
-import com.vetapp.vet.service.VetService;
 import com.vetapp.visit.entity.Visit;
-import com.vetapp.visit.service.VisitService;
 import lombok.SneakyThrows;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Initialized;
-import javax.enterprise.context.control.RequestContextController;
-import javax.enterprise.event.Observes;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.List;
 
-@ApplicationScoped
+@Singleton
+@Startup
 public class InitData {
-    private final VetService vetService;
-    private final VisitService visitService;
+    private EntityManager em;
+    @PersistenceContext(unitName = "VetApppPu")
+    public void setEm(EntityManager em){
+        this.em = em;
+    }
 
-    private final AnimalService animalService;
-
-    private RequestContextController requestContextController;
+    private Pbkdf2PasswordHash pbkdf;
 
     @Inject
-    public InitData(VetService vetService, VisitService visitService, AnimalService animalService, RequestContextController requestContextController){
-        this.vetService = vetService;
-        this.visitService = visitService;
-        this.animalService = animalService;
-        this.requestContextController = requestContextController;
+    public void setPbkdf(Pbkdf2PasswordHash pbkdf) {
+        this.pbkdf = pbkdf;
     }
 
-    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        init();
-    }
+    public InitData() {}
 
+    @PostConstruct
     private synchronized void init(){
-        requestContextController.activate();// start request scope in order to inject request scoped repositories
-
         Animal animal1 = Animal.builder()
                 .id(1)
                 .name("animal1")
@@ -66,48 +63,52 @@ public class InitData {
                 .typeAnimal(TypeAnimal.cat)
                 .build();
 
-        animalService.create(animal1);
-        animalService.create(animal2);
-        animalService.create(animal3);
+        em.persist(animal1);
+        em.persist(animal2);
+        em.persist(animal3);
 
         Vet login1 = Vet.builder()
                 .login("login1")
                 .employmentDate(LocalDate.of(2022,10,18))
                 .price(500)
-                .role(Role.USER)
+                .roles(List.of(Role.USER, Role.ADMIN))
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/zereni.png"))
                 //.visits(new ArrayList<>())
+                .password(pbkdf.generate("login1".toCharArray()))
                 .build();
 
         Vet login2 = Vet.builder()
                 .login("login2")
                 .employmentDate(LocalDate.of(2021,9,11))
                 .price(1500)
-                .role(Role.USER)
+                .roles(List.of(Role.USER))
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/uhlbrecht.png"))
                 //.visits(new ArrayList<>())
+                .password(pbkdf.generate("login2".toCharArray()))
                 .build();
 
         Vet login3 = Vet.builder()
                 .login("login3")
                 .employmentDate(LocalDate.of(2020,7,5))
                 .price(1000)
-                .role(Role.USER)
+                .roles(List.of(Role.USER))
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/calvian.png"))
                 //.visits(new ArrayList<>())
+                .password(pbkdf.generate("login3".toCharArray()))
                 .build();
 
         Vet login4 = Vet.builder()
                 .login("login4")
                 .employmentDate(LocalDate.of(2022,3,8))
                 .price(100)
-                .role(Role.USER)
+                .roles(List.of(Role.USER))
                 .isHaveAvatar(true)
                 .avatar(getResourceAsByteArray("avatar/eloise.png"))
                 //.visits(new ArrayList<>())
+                .password(pbkdf.generate("login4".toCharArray()))
                 .build();
 
         var visit1 = Visit.builder()
@@ -128,20 +129,18 @@ public class InitData {
                 .vet(login1)
                 .build();
 
-        vetService.create(login1);
-        vetService.create(login2);
-        vetService.create(login3);
-        vetService.create(login4);
+        em.persist(login1);
+        em.persist(login2);
+        em.persist(login3);
+        em.persist(login4);
 
         //vetService.saveAvatar(login1);
         //vetService.saveAvatar(login2);
         //vetService.saveAvatar(login3);
         //vetService.saveAvatar(login4);
 
-        visitService.create2(visit1);
-        visitService.create2(visit2);
-
-        requestContextController.deactivate();
+        em.persist(visit1);
+        em.persist(visit2);
     }
 
     @SneakyThrows

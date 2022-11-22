@@ -21,10 +21,10 @@ import java.util.List;
 public class Vet implements Serializable {
     @Id
     private String login;
+    private String password;
     @Column(name = "employment_date")
     private LocalDate employmentDate;
     private double price;
-    private Role role;
 
     @Column(name = "is_have_avatar")
     private boolean isHaveAvatar;
@@ -35,14 +35,10 @@ public class Vet implements Serializable {
     @OneToMany
     private List<Visit> visits;
 
-    //private List<Visit> visits;
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
 
-    //public void addVisits(Visit visit){
-    //    visits.add(visit);
-    //}
-    //
-    //public void deleteVisits(Visit visit){
-    //    visits.remove(visit);
-    //}
 
 }

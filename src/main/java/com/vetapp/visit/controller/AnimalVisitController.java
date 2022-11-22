@@ -11,6 +11,7 @@ import com.vetapp.visit.dto.response1.GetVisitsResponse;
 import com.vetapp.visit.entity.Visit;
 import com.vetapp.visit.service.VisitService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -25,9 +26,12 @@ public class AnimalVisitController {
 
     public AnimalVisitController(){};
 
-    @Inject
-    void setAnimalService(AnimalService animalService, VetService vetService){
+    @EJB
+    void setAnimalService(AnimalService animalService){
         this.animalService = animalService;
+    }
+    @EJB
+    void setVetService(VetService vetService){
         this.vetService = vetService;
     }
 

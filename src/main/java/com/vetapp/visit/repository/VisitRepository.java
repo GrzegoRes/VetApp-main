@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequestScoped
+@Dependent
 public class VisitRepository {
 
     private EntityManager em;

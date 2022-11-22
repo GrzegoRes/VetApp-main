@@ -14,5 +14,4 @@ public class PutVetRequest {
     private String login;
     private LocalDate employmentDate;
     private double price;
-    private String role;
 }

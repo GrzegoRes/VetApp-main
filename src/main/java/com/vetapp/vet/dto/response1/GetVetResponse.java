@@ -15,19 +15,17 @@ import java.util.function.Function;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-@JsonbPropertyOrder({"login","employmentDate","price","role"})
+@JsonbPropertyOrder({"login","employmentDate","price"})
 public class GetVetResponse {
     private String login;
     private LocalDate employmentDate;
     private double price;
-    private Role role;
 
     public static Function<Vet, GetVetResponse> entityToDtoMapper() {
         return vet -> GetVetResponse.builder()
                 .login(vet.getLogin())
                 .employmentDate(vet.getEmploymentDate())
                 .price(vet.getPrice())
-                .role(vet.getRole())
                 .build();
     }
 }

@@ -1,13 +1,15 @@
 package com.vetapp.animal.repository;
 
 import com.vetapp.animal.entity.Animal;
+
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@RequestScoped
+@Dependent
 public class AnimalRepository {
 
     private EntityManager em;

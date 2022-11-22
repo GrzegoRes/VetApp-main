@@ -6,6 +6,7 @@ import com.vetapp.vet.dto.response1.GetVetsResponse;
 import com.vetapp.vet.entity.Vet;
 import com.vetapp.vet.service.VetService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,7 +22,7 @@ public class VetAvatarController {
     public VetAvatarController(){};
 
 
-    @Inject
+    @EJB
     void setVetService(VetService vetService){
         this.vetService = vetService;
     }

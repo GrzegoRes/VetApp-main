@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@RequestScoped
+@Dependent
 public class VetRepository {
 
     private EntityManager em;
